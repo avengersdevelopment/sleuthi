@@ -32,13 +32,14 @@ export default function Container() {
         marqueProps={{ direction: "right" }}
         image={
           <Image
-            src={"https://picsum.photos/40"}
-            width={40}
-            height={40}
+            src={"/assets/homepage/running-text/paw.png"}
+            width={480}
+            height={480}
             alt=""
+            className="h-auto w-[2vw]"
           />
         }
-        coinName="$COIN"
+        coinName="sleuthi"
         count={100}
       />
       <Section2 />

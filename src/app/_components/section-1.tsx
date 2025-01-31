@@ -7,81 +7,27 @@ import Image from "next/image";
 export const Section1 = () => {
   const { character, setCharacter } = useCharacterStore();
 
-  function getNextOneChar() {
-    switch (character.name) {
-      case hawk.name: {
-        return "/assets/homepage/section-1/chat-choco.png";
-      }
-      case choco.name: {
-        return "/assets/homepage/section-1/chat-hawk.png";
-      }
-      case river.name: {
-        return "/assets/homepage/section-1/chat-choco.png";
-      }
-      default: {
-        return "/assets/homepage/section-1/chat-choco.png";
-      }
-    }
-  }
+  const characterTransitions = {
+    [hawk.name]: { next: choco, nextTwo: river, chatOne: "choco", chatTwo: "river" },
+    [choco.name]: { next: hawk, nextTwo: river, chatOne: "hawk", chatTwo: "river" },
+    [river.name]: { next: choco, nextTwo: hawk, chatOne: "choco", chatTwo: "hawk" },
+  };
 
-  function getNextTwoChar() {
-    switch (character.name) {
-      case hawk.name: {
-        return "/assets/homepage/section-1/chat-river.png";
-      }
-      case choco.name: {
-        return "/assets/homepage/section-1/chat-river.png";
-      }
-      case river.name: {
-        return "/assets/homepage/section-1/chat-hawk.png";
-      }
-      default: {
-        return "/assets/homepage/section-1/chat-river.png";
-      }
-    }
-  }
+  const defaultTransition = { next: choco, nextTwo: river, chatOne: "choco", chatTwo: "river" };
 
-  function nextOneCharClicked() {
-    switch (character.name) {
-      case hawk.name: {
-        setCharacter(choco);
-        return;
-      }
-      case choco.name: {
-        setCharacter(hawk);
-        return;
-      }
-      case river.name: {
-        setCharacter(choco);
-        return;
-      }
-      default: {
-        setCharacter(choco);
-        return;
-      }
-    }
-  }
+  const getTransition = () => characterTransitions[character.name] || defaultTransition;
 
-  function nextTwoCharClicked() {
-    switch (character.name) {
-      case hawk.name: {
-        setCharacter(river);
-        return;
-      }
-      case choco.name: {
-        setCharacter(river);
-        return;
-      }
-      case river.name: {
-        setCharacter(hawk);
-        return;
-      }
-      default: {
-        setCharacter(river);
-        return;
-      }
-    }
-  }
+  const getNextOneChar = () => `/assets/homepage/section-1/chat-${getTransition().chatOne}.png`;
+  const getNextTwoChar = () => `/assets/homepage/section-1/chat-${getTransition().chatTwo}.png`;
+  
+  const nextOneCharClicked = () => setCharacter(getTransition().next);
+  const nextTwoCharClicked = () => setCharacter(getTransition().nextTwo);
+
+  const bgColorMap = {
+    [hawk.name]: "bg-[#D6FF38]",
+    [choco.name]: "bg-[#FF6B6B]",
+    [river.name]: "bg-[#81F495]",
+  };
 
   return (
     <section
@@ -124,11 +70,7 @@ export const Section1 = () => {
             <div
               className={cn(
                 "rounded-full border-[0.25vw] border-black px-[1.5vw] py-[1vw]",
-                {
-                  "bg-[#D6FF38]": character.name === hawk.name,
-                  "bg-[#FF6B6B]": character.name === choco.name,
-                  "bg-[#81F495]": character.name === river.name,
-                },
+                bgColorMap[character.name]
               )}
             >
               <p className="font-inter text-[2vw] text-black">{`Chat ${character.name}`}</p>
@@ -154,7 +96,9 @@ export const Section1 = () => {
           </div>
         </div>
 
-        <div className="h-full w-[40%] border border-black"></div>
+        <div className="h-full w-[40%] border border-black">
+          {/* CHARACTER */}
+        </div>
       </div>
     </section>
   );
