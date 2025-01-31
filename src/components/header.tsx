@@ -9,7 +9,7 @@ interface NavigationItem {
   link: string;
 }
 
-const navigations: NavigationItem[] = [
+export const navigations: NavigationItem[] = [
   {
     title: "Home",
     link: "/",
