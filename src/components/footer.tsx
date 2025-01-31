@@ -40,7 +40,7 @@ export const Footer = () => {
           className="-ml-[7vw] mr-[4vw] h-auto w-[15vw]"
         />
 
-        <div className="flex h-full w-min flex-col justify-center border mr-[1.5vw]">
+        <div className="flex h-full w-min flex-col justify-center mr-[3vw]">
           <div className="flex w-full items-center gap-[2vw]">
             <p className="font-inter text-[3vw] font-bold text-black">
               sleuthi
@@ -81,10 +81,10 @@ export const Footer = () => {
 
         <Image
           src={"/assets/homepage/footer/paw.png"}
-          width={1000}
-          height={1000}
+          width={800}
+          height={800}
           alt=""
-          className="h-full w-full object-fill"
+          className="h-auto w-full mr-[2vw]"
           priority
         />
       </div>
