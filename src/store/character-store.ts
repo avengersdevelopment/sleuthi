@@ -10,7 +10,7 @@ interface Character {
   characterAssetPath: string;
 }
 
-const hawk: Character = {
+export const hawk: Character = {
   name: "Hawk",
   bgColor: "#F7F6F2",
   primaryColor: "#D6FF38",
@@ -18,19 +18,19 @@ const hawk: Character = {
   characterAssetPath: "",
 };
 
-const choco: Character = {
+export const choco: Character = {
   name: "Choco",
-  bgColor: "#FEF8E1",
-  primaryColor: "#D6FF38",
-  secondaryColor: "#FFAFEC",
+  bgColor: "#FFF8E1",
+  primaryColor: "#FF6B6B",
+  secondaryColor: "#5DD9C1",
   characterAssetPath: "",
 };
 
-const river: Character = {
+export const river: Character = {
   name: "River",
-  bgColor: "#F4EEFE",
-  primaryColor: "#D6FF38",
-  secondaryColor: "#FFAFEC",
+  bgColor: "#F4EEFF",
+  primaryColor: "#81F495",
+  secondaryColor: "#FFC75F",
   characterAssetPath: "",
 };
 

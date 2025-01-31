@@ -42,7 +42,7 @@ export const Header = () => {
               <Link key={index} href={navigation.link}>
                 <p
                   className={cn(
-                    "text-black",
+                    "text-black text-[1vw]",
                     isActive ? "font-bold" : "font-normal",
                   )}
                 >

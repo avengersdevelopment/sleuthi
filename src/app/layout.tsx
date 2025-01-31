@@ -2,7 +2,8 @@ import Aos from "@/components/aos";
 import Providers from "@/components/providers";
 import { createClient } from "@/utils/supabase/server";
 import type { Metadata } from "next";
-import { DM_Sans, Inter } from "next/font/google";
+import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import { twMerge } from "tailwind-merge";
 import "./globals.css";
 
@@ -10,6 +11,34 @@ const inter = Inter({
   weight: ["400", "700"],
   subsets: ["latin"],
   variable: "--font-inter",
+});
+
+const arkipelago = localFont({
+  src: [
+    {
+      path: "../../public/fonts/arkipelago.otf",
+      weight: "400",
+    },
+    {
+      path: "../../public/fonts/arkipelago.otf",
+      weight: "700",
+    },
+  ],
+  variable: "--font-arkipelago",
+});
+
+const avigea = localFont({
+  src: [
+    {
+      path: "../../public/fonts/avigea.ttf",
+      weight: "400",
+    },
+    {
+      path: "../../public/fonts/avigea.ttf",
+      weight: "700",
+    },
+  ],
+  variable: "--font-avigea",
 });
 
 export const metadata: Metadata = {
@@ -40,7 +69,14 @@ export default async function RootLayout({
     <>
       <Aos />
       <html lang="en" className="relative">
-        <body className={twMerge(inter.variable, "font-inter antialiased")}>
+        <body
+          className={twMerge(
+            inter.variable,
+            arkipelago.variable,
+            avigea.variable,
+            "font-inter antialiased",
+          )}
+        >
           <Providers config={configs?.[0] || null}>{children}</Providers>
         </body>
       </html>

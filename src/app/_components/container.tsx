@@ -9,7 +9,7 @@ import Footer from "@/components/footer";
 import RunningText from "@/components/running-text";
 import Image from "next/image";
 import { useConfig } from "@/store/config";
-import { useCharacterStore } from "@/store/character-store";
+import { choco, hawk, river, useCharacterStore } from "@/store/character-store";
 import { cn } from "@/utils/classname";
 
 export default function Container() {
@@ -19,7 +19,13 @@ export default function Container() {
   const { character } = useCharacterStore();
 
   return (
-    <main className={cn(`relative h-full w-full bg-[${character.bgColor}]`)}>
+    <main
+      className={cn("relative h-full w-full", {
+        "bg-[#F7F6F2]": character.name === hawk.name,
+        "bg-[#FEF8E1]": character.name === choco.name,
+        "bg-[#F4EEFE]": character.name === river.name,
+      })}
+    >
       <Header />
       <Section1 />
       <RunningText

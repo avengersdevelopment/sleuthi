@@ -16,6 +16,8 @@ const config: Config = {
     extend: {
       fontFamily: {
         inter: ["var(--font-inter)"],
+        arkipelago: ["var(--font-arkipelago)"],
+        avigea: ["var(--font-avigea)"],
       },
       container: {
         center: true,
