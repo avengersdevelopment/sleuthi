@@ -8,18 +8,41 @@ export const Section1 = () => {
   const { character, setCharacter } = useCharacterStore();
 
   const characterTransitions = {
-    [hawk.name]: { next: choco, nextTwo: river, chatOne: "choco", chatTwo: "river" },
-    [choco.name]: { next: hawk, nextTwo: river, chatOne: "hawk", chatTwo: "river" },
-    [river.name]: { next: choco, nextTwo: hawk, chatOne: "choco", chatTwo: "hawk" },
+    [hawk.name]: {
+      next: choco,
+      nextTwo: river,
+      chatOne: "choco",
+      chatTwo: "river",
+    },
+    [choco.name]: {
+      next: hawk,
+      nextTwo: river,
+      chatOne: "hawk",
+      chatTwo: "river",
+    },
+    [river.name]: {
+      next: choco,
+      nextTwo: hawk,
+      chatOne: "choco",
+      chatTwo: "hawk",
+    },
   };
 
-  const defaultTransition = { next: choco, nextTwo: river, chatOne: "choco", chatTwo: "river" };
+  const defaultTransition = {
+    next: choco,
+    nextTwo: river,
+    chatOne: "choco",
+    chatTwo: "river",
+  };
 
-  const getTransition = () => characterTransitions[character.name] || defaultTransition;
+  const getTransition = () =>
+    characterTransitions[character.name] || defaultTransition;
 
-  const getNextOneChar = () => `/assets/characters/chat-${getTransition().chatOne}.png`;
-  const getNextTwoChar = () => `/assets/characters/chat-${getTransition().chatTwo}.png`;
-  
+  const getNextOneChar = () =>
+    `/assets/characters/chat-${getTransition().chatOne}.png`;
+  const getNextTwoChar = () =>
+    `/assets/characters/chat-${getTransition().chatTwo}.png`;
+
   const nextOneCharClicked = () => setCharacter(getTransition().next);
   const nextTwoCharClicked = () => setCharacter(getTransition().nextTwo);
 
@@ -29,10 +52,14 @@ export const Section1 = () => {
     [river.name]: "bg-[#81F495]",
   };
 
+  const heroAsset = {
+    [hawk.name]: "/assets/characters/hawk.gif",
+    [choco.name]: "/assets/characters/choco.gif",
+    [river.name]: "/assets/characters/river.gif",
+  };
+
   return (
-    <section
-      className={cn(`flex h-screen w-full justify-center py-[10%]`)}
-    >
+    <section className={cn(`flex h-screen w-full justify-center py-[10%]`)}>
       <div className="relative flex h-full w-[90vw]">
         <p className="font-arkipelago absolute -left-[2.5vw] -top-[2vw] -rotate-[25deg] text-[3vw] text-black">
           Whats up...
@@ -70,7 +97,7 @@ export const Section1 = () => {
             <div
               className={cn(
                 "rounded-full border-[0.25vw] border-black px-[1.5vw] py-[1vw]",
-                bgColorMap[character.name]
+                bgColorMap[character.name],
               )}
             >
               <p className="font-inter text-[2vw] text-black">{`Chat ${character.name}`}</p>
@@ -96,8 +123,15 @@ export const Section1 = () => {
           </div>
         </div>
 
-        <div className="h-full w-[40%] border border-black">
-          {/* CHARACTER */}
+        <div className="h-full w-[40%]">
+          <Image
+            src={heroAsset[character.name]}
+            width={480}
+            height={480}
+            alt=""
+            className="h-auto w-full"
+            priority
+          />
         </div>
       </div>
     </section>

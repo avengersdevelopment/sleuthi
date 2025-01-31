@@ -7,7 +7,6 @@ interface Character {
   bgColor: string;
   primaryColor: string;
   secondaryColor: string;
-  characterAssetPath: string;
 }
 
 export const hawk: Character = {
@@ -15,7 +14,6 @@ export const hawk: Character = {
   bgColor: "#F7F6F2",
   primaryColor: "#D6FF38",
   secondaryColor: "#FFAFEC",
-  characterAssetPath: "",
 };
 
 export const choco: Character = {
@@ -23,7 +21,6 @@ export const choco: Character = {
   bgColor: "#FFF8E1",
   primaryColor: "#FF6B6B",
   secondaryColor: "#5DD9C1",
-  characterAssetPath: "",
 };
 
 export const river: Character = {
@@ -31,7 +28,6 @@ export const river: Character = {
   bgColor: "#F4EEFF",
   primaryColor: "#81F495",
   secondaryColor: "#FFC75F",
-  characterAssetPath: "",
 };
 
 interface CharacterStore {
