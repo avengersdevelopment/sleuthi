@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import Footer from "@/app/_components/footer";
-import Header from "@/app/_components/header";
+import Footer from "@/components/footer";
+import Header from "@/components/header";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
