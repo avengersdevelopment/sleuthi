@@ -129,7 +129,7 @@ export const Section1 = () => {
             width={480}
             height={480}
             alt=""
-            className="h-auto w-full"
+            className="h-auto w-full scale-150 -mt-[4vw]"
             priority
           />
         </div>
