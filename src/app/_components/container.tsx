@@ -43,10 +43,6 @@ export default function Container() {
         count={100}
       />
       <Section2 />
-      <RunningText coinName="$COIN" count={100} />
-      <Section3 />
-      <RunningText coinName="$COIN" count={100} />
-      <Section4 />
       <Footer />
     </main>
   );

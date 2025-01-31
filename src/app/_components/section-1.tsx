@@ -17,8 +17,8 @@ export const Section1 = () => {
 
   const getTransition = () => characterTransitions[character.name] || defaultTransition;
 
-  const getNextOneChar = () => `/assets/homepage/section-1/chat-${getTransition().chatOne}.png`;
-  const getNextTwoChar = () => `/assets/homepage/section-1/chat-${getTransition().chatTwo}.png`;
+  const getNextOneChar = () => `/assets/characters/chat-${getTransition().chatOne}.png`;
+  const getNextTwoChar = () => `/assets/characters/chat-${getTransition().chatTwo}.png`;
   
   const nextOneCharClicked = () => setCharacter(getTransition().next);
   const nextTwoCharClicked = () => setCharacter(getTransition().nextTwo);
@@ -31,7 +31,7 @@ export const Section1 = () => {
 
   return (
     <section
-      className={cn(`flex h-screen w-full justify-center pb-[10%] pt-[5%]`)}
+      className={cn(`flex h-screen w-full justify-center py-[10%]`)}
     >
       <div className="relative flex h-full w-[90vw]">
         <p className="font-arkipelago absolute -left-[2.5vw] -top-[2vw] -rotate-[25deg] text-[3vw] text-black">
