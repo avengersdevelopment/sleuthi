@@ -61,7 +61,7 @@ const sidebarItems: SidebarItem[] = [
     content: <p>Lorem</p>,
   },
   {
-    title: "DATA AGGREGATION 3", 
+    title: "DATA AGGREGATION 3",
     content: <p>Lorem</p>,
   },
   {
@@ -81,19 +81,19 @@ const sidebarItems: SidebarItem[] = [
 const bgColors = {
   header: {
     [hawk.name]: "bg-[#FFAFEC]",
-    [choco.name]: "bg-[#5DD9C1]", 
-    [river.name]: "bg-[#FFC75F]"
+    [choco.name]: "bg-[#5DD9C1]",
+    [river.name]: "bg-[#FFC75F]",
   },
   content: {
     [hawk.name]: "bg-[#F7F6F2]",
     [choco.name]: "bg-[#FEF8E1]",
-    [river.name]: "bg-[#F4EEFE]"
+    [river.name]: "bg-[#F4EEFE]",
   },
   active: {
     [hawk.name]: "bg-[#D6FF38]",
     [choco.name]: "bg-[#FF6B6B]",
-    [river.name]: "bg-[#81F495]"
-  }
+    [river.name]: "bg-[#81F495]",
+  },
 };
 
 export function Container() {
@@ -113,28 +113,29 @@ export function Container() {
         key={index}
         className={cn(
           "w-full cursor-pointer rounded-full bg-white py-[1.5vw] text-center",
-          { [bgColors.active[character.name]]: isActive }
+          { [bgColors.active[character.name]]: isActive },
         )}
         onClick={() => setActiveSidebar(index)}
       >
-        <p className="text-[1.25vw] font-semibold text-black">
-          {item.title}
-        </p>
+        <p className="text-[8px] md:text-[1.25vw] font-semibold text-black">{item.title}</p>
       </div>
     );
   };
 
   const renderBackButton = () => (
     <Link href="/">
-      <div className="absolute left-[2vw] top-[1.25vw] flex items-center gap-[1vw] hover:animate-shake">
+      <div className="absolute left-[2vw] top-[2.5vw] flex items-center gap-[1vw] hover:animate-shake md:left-[2vw] md:top-[1.25vw]">
         <Image
           src="/assets/docs/arrow-left.png"
           width={480}
           height={480}
           alt=""
-          className="h-auto w-[2vw]"
+          className="h-auto w-[4vw] md:w-[2vw]"
         />
-        <p className="mt-[0.25vw] font-avigea text-[1.25vw] font-bold text-black" style={{ lineHeight: 0 }}>
+        <p
+          className="mt-[0.25vw] font-avigea text-xs font-bold text-black md:text-[1.25vw]"
+          style={{ lineHeight: 0 }}
+        >
           Back
         </p>
       </div>
@@ -149,7 +150,7 @@ export function Container() {
       alt=""
       className={cn("absolute h-auto w-[6vw]", {
         "bottom-[1.75vw] left-[5vw]": position === "left",
-        "right-[5vw] top-[1.75vw]": position === "right"
+        "right-[5vw] top-[1.75vw]": position === "right",
       })}
     />
   );
@@ -157,7 +158,7 @@ export function Container() {
   return (
     <main className="h-screen w-full">
       <div className="flex h-full w-full">
-        <div className="flex h-full w-[30%] flex-col bg-black">
+        <div className="hidden h-full w-[30%] flex-col bg-black md:flex">
           <div className="h-[40%] w-full content-center">
             <p className="text-center font-inter text-[3vw] font-bold text-white">
               sleuthi
@@ -169,8 +170,18 @@ export function Container() {
           </div>
         </div>
 
-        <div className={cn("flex h-full w-[70%] flex-col", bgColors.content[character.name])}>
-          <div className={cn("relative h-[25%] w-full", bgColors.header[character.name])}>
+        <div
+          className={cn(
+            "flex h-full w-full flex-col md:w-[70%]",
+            bgColors.content[character.name],
+          )}
+        >
+          <div
+            className={cn(
+              "relative h-[15%] w-full md:h-[25%]",
+              bgColors.header[character.name],
+            )}
+          >
             <Image
               src="/assets/docs/bg-pattern.png"
               width={1000}
@@ -182,7 +193,7 @@ export function Container() {
 
             {renderBackButton()}
 
-            <p className="absolute left-[25vw] top-[6vw] font-avigea text-[2vw] text-black">
+            <p className="absolute left-[36vw] top-[12vw] font-avigea text-[12px] text-black md:left-[25vw] md:top-[6vw] md:text-[2vw]">
               {sidebarItems[activeSidebar].title}
             </p>
 
@@ -190,7 +201,10 @@ export function Container() {
             {renderSparkImage("right")}
           </div>
 
-          <div className="flex h-full w-full flex-col overflow-y-auto p-[2vw]">
+          <div className="flex h-full w-full flex-col overflow-y-auto p-[2vw] gap-[2vw]">
+            <div className="grid w-full grid-cols-3 md:hidden gap-2">
+              {sidebarItems.map(renderSidebarItem)}
+            </div>
             {sidebarItems[activeSidebar].content}
           </div>
         </div>
