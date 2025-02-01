@@ -10,7 +10,7 @@ import {
 } from "@/store/character-store";
 import Image from "next/image";
 
-const bgColorMap = {
+const charBgColor = {
   [hawk.name]: "bg-[#D6FF38]",
   [choco.name]: "bg-[#FF6B6B]",
   [river.name]: "bg-[#81F495]",
@@ -56,7 +56,11 @@ const characterTransitions = {
   },
 };
 
-export default function LeftSection() {
+interface LeftSectionProps {
+  walletAddress: string;
+}
+
+export default function LeftSection({ walletAddress }: LeftSectionProps) {
   const { character, setCharacter } = useCharacterStore();
 
   const getTransition = () =>
@@ -67,7 +71,8 @@ export default function LeftSection() {
 
   const changeCharacter = (nextCharacter: ICharacter) => {
     setCharacter(nextCharacter);
-    window.location.href = `/chatbot?character=${nextCharacter.name}`;
+
+    window.location.href = `/chatbot?character=${nextCharacter.name}&walletAddress=${walletAddress}`;
   };
 
   return (
@@ -78,73 +83,79 @@ export default function LeftSection() {
         "bg-[#F4EEFE]": character.name === river.name,
       })}
     >
-      <div className="flex h-full w-full flex-col items-center justify-center">
-        <div className="-mb-[2vw]">
-          <Image
-            src={heroAsset[character.name]}
-            width={480}
-            height={480}
-            alt=""
-            className="-mt-[4vw] h-auto w-full"
-            priority
-          />
-        </div>
-        <div className="mb-[1vw]">
-          <p
-            className="font-avigea text-[6vw] text-black"
-            style={{ lineHeight: 1 }}
-          >
-            Dr. {character.name}
-          </p>
-        </div>
-        <div className="flex items-center">
-          <div
-            className={cn(
-              "rounded-full border-[0.2vw] border-black px-[1.5vw] py-[1vw]",
-              bgColorMap[character.name],
-            )}
-          >
-            <p className="font-inter text-[1.8vw] text-black">{`Chat ${character.name}`}</p>
+      <div
+        className={cn("h-full w-full")}
+        style={{
+          backgroundImage: `url(${iconSpark[character.name]})`,
+          backgroundSize: "20vw auto",
+          backgroundPosition: "-4vw -4vw",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        <div
+          className={cn("h-full w-full")}
+          style={{
+            backgroundImage: `url(/assets/chatbot/step.png)`,
+            backgroundSize: "12vw auto",
+            backgroundPosition: "85% 4vw",
+            backgroundRepeat: "no-repeat",
+          }}
+        >
+          <div className="h-full w-full">
+            <div className="flex h-full w-full flex-col items-center justify-center">
+              <div className="mb-[4vw]">
+                <Image
+                  src={heroAsset[character.name]}
+                  width={480}
+                  height={480}
+                  alt=""
+                  className="-mt-[4vw] h-auto w-full scale-[1.6]"
+                  priority
+                />
+              </div>
+              <div className="mb-[1vw]">
+                <p
+                  className="font-avigea text-[6vw] text-black"
+                  style={{ lineHeight: 1 }}
+                >
+                  Dr. {character.name}
+                </p>
+              </div>
+              <div className="flex items-center">
+                <div
+                  className={cn(
+                    "rounded-full border-[0.2vw] border-black px-[1.6vw] py-[0.8vw]",
+                    charBgColor[character.name],
+                  )}
+                >
+                  <p className="font-inter text-[1.2vw] text-black">{`Chat ${character.name}`}</p>
+                </div>
+                <div className="w-[1.6vw] border-[0.2vw] border-b border-black" />
+                <button onClick={() => changeCharacter(getTransition().next)}>
+                  <Image
+                    src={getCharImage("chatOne")}
+                    width={480}
+                    height={480}
+                    alt=""
+                    className="h-auto w-[4vw] cursor-pointer"
+                  />
+                </button>
+                <div className="w-[1.6vw] border-[0.2vw] border-b border-black" />
+                <button
+                  onClick={() => changeCharacter(getTransition().nextTwo)}
+                >
+                  <Image
+                    src={getCharImage("chatTwo")}
+                    width={480}
+                    height={480}
+                    alt=""
+                    className="h-auto w-[4vw] cursor-pointer"
+                  />
+                </button>
+              </div>
+            </div>
           </div>
-          <div className="w-[1.5vw] border-[0.2vw] border-b border-black" />
-          <button onClick={() => changeCharacter(getTransition().next)}>
-            <Image
-              src={getCharImage("chatOne")}
-              width={480}
-              height={480}
-              alt=""
-              className="h-auto w-[5vw] cursor-pointer"
-            />
-          </button>
-          <div className="w-[1.5vw] border-[0.2vw] border-b border-black" />
-          <button onClick={() => changeCharacter(getTransition().nextTwo)}>
-            <Image
-              src={getCharImage("chatTwo")}
-              width={480}
-              height={480}
-              alt=""
-              className="h-auto w-[5vw] cursor-pointer"
-            />
-          </button>
         </div>
-      </div>
-      <div className="absolute left-[-4vw] top-[-4vw]">
-        <Image
-          src={iconSpark[character.name]}
-          width={480}
-          height={480}
-          alt=""
-          className="h-auto w-[20vw]"
-        />
-      </div>
-      <div className="absolute right-[4vw] top-[4vw]">
-        <Image
-          src={"/assets/chatbot/step.png"}
-          width={480}
-          height={480}
-          alt=""
-          className="h-auto w-[12vw]"
-        />
       </div>
     </section>
   );
