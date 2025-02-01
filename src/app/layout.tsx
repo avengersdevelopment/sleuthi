@@ -42,16 +42,16 @@ const avigea = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "App Name",
-  description: "App Description",
+  title: "Sleuthi",
+  description: "Your friendly AI assistant, ready to fetch info with a smile",
   openGraph: {
-    title: "App Name",
-    description: "App Description",
+    title: "Sleuthi",
+    description: "Your friendly AI assistant, ready to fetch info with a smile",
     url: "/",
     images: [
       {
-        url: "/preview.png",
-        alt: "App Preview",
+        url: "/banner.png",
+        alt: "Slethi",
       },
     ],
   },
