@@ -71,7 +71,7 @@ export default function LeftSection() {
   };
 
   return (
-    <div
+    <section
       className={cn("relative h-full w-full overflow-hidden", {
         "bg-[#F7F6F2]": character.name === hawk.name,
         "bg-[#FEF8E1]": character.name === choco.name,
@@ -146,6 +146,6 @@ export default function LeftSection() {
           className="h-auto w-[12vw]"
         />
       </div>
-    </div>
+    </section>
   );
 }
