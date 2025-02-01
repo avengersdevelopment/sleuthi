@@ -2,28 +2,28 @@ import { create } from "zustand";
 import { createJSONStorage } from "zustand/middleware";
 import { persist } from "zustand/middleware";
 
-interface Character {
+export interface ICharacter {
   name: string;
   bgColor: string;
   primaryColor: string;
   secondaryColor: string;
 }
 
-export const hawk: Character = {
+export const hawk: ICharacter = {
   name: "Hawk",
   bgColor: "#F7F6F2",
   primaryColor: "#D6FF38",
   secondaryColor: "#FFAFEC",
 };
 
-export const choco: Character = {
+export const choco: ICharacter = {
   name: "Choco",
   bgColor: "#FFF8E1",
   primaryColor: "#FF6B6B",
   secondaryColor: "#5DD9C1",
 };
 
-export const river: Character = {
+export const river: ICharacter = {
   name: "River",
   bgColor: "#F4EEFF",
   primaryColor: "#81F495",
@@ -31,8 +31,8 @@ export const river: Character = {
 };
 
 interface CharacterStore {
-  character: Character;
-  setCharacter: (character: Character) => void;
+  character: ICharacter;
+  setCharacter: (character: ICharacter) => void;
 }
 
 export const useCharacterStore = create<CharacterStore>()(
