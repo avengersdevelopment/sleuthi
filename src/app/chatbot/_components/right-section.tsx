@@ -138,7 +138,7 @@ export default function RightSection({
 
     localStorage.setItem("character-storage", JSON.stringify(updatedCharacter));
 
-    window.location.href = `/chatbot?character=${nextCharacter.name}&walletAddress=${walletAddress}`;
+    window.location.href = `/chatbot?character=${nextCharacter.name}${walletAddress ? `&walletAddress=${walletAddress}` : ""}`;
   };
 
   return (

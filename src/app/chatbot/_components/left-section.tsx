@@ -84,7 +84,7 @@ export default function LeftSection({ walletAddress }: LeftSectionProps) {
 
     localStorage.setItem("character-storage", JSON.stringify(updatedCharacter));
 
-    window.location.href = `/chatbot?character=${nextCharacter.name}&walletAddress=${walletAddress}`;
+    window.location.href = `/chatbot?character=${nextCharacter.name}${walletAddress ? `&walletAddress=${walletAddress}` : ""}`;
   };
 
   return (
