@@ -40,7 +40,7 @@ export const Section2 = () => {
   const ServiceCard = ({ id }: { id: number }) => (
     <div
       className={cn(
-        "flex h-full flex-col items-center rounded-3xl border-[0.25vw] border-black px-[2vw] py-[1.5vw]",
+        "flex h-full flex-row items-center rounded-3xl border-[0.25vw] border-black px-[4vw] py-[3vw] md:px-[2vw] md:py-[1.5vw] md:flex-col",
         getBgColor("card"),
       )}
     >
@@ -49,52 +49,54 @@ export const Section2 = () => {
         width={480}
         height={480}
         alt=""
-        className="mb-[2vw] h-auto w-[15vw]"
-        priority
-      />
-
-      <p
-        className="font-avigea mb-[1vw] text-center text-[2vw] text-black"
-        style={{ lineHeight: 1 }}
-      >
-        DYNAMIC TICKER DATA AGGREGATION
-      </p>
-
-      <p
-        className="font-inter text-center text-[1vw] text-black"
-        style={{ lineHeight: 1 }}
-      >
-        Blade distills the strategies of the top 100 elite traders into
-      </p>
-    </div>
-  );
-
-  const ServiceCard2 = ({ id }: { id: number }) => (
-    <div
-      className={cn(
-        "flex h-full items-center rounded-3xl border-[0.25vw] border-black px-[2vw] py-[1.5vw]",
-        getBgColor("card"),
-      )}
-    >
-      <Image
-        src={getAssetPath("item", id)}
-        width={480}
-        height={480}
-        alt=""
-        className="h-auto w-[14vw] mr-[1vw]"
+        className="mb-[2vw] h-auto w-[15vw] md:mr-0 mr-[4vw]"
         priority
       />
 
       <div className="flex w-full flex-col">
         <p
-          className="font-avigea text-[2vw] text-black mb-[2vw]"
+          className="mb-[1vw] md:text-center font-avigea text-lg md:text-[2vw] text-black"
           style={{ lineHeight: 1 }}
         >
           DYNAMIC TICKER DATA AGGREGATION
         </p>
 
         <p
-          className="font-inter text-[1vw] text-black"
+          className="md:text-center font-inter text-[8px] md:text-[1vw] text-black"
+          style={{ lineHeight: 1 }}
+        >
+          Blade distills the strategies of the top 100 elite traders into
+        </p>
+      </div>
+    </div>
+  );
+
+  const ServiceCard2 = ({ id }: { id: number }) => (
+    <div
+      className={cn(
+        "flex h-full items-center rounded-3xl border-[0.25vw] border-black px-[4vw] py-[3vw] md:px-[2vw] md:py-[1.5vw]",
+        getBgColor("card"),
+      )}
+    >
+      <Image
+        src={getAssetPath("item", id)}
+        width={480}
+        height={480}
+        alt=""
+        className="mr-[4vw] h-auto w-[14vw] md:mr-[1vw]"
+        priority
+      />
+
+      <div className="flex w-full flex-col">
+        <p
+          className="mb-[2vw] font-avigea text-lg text-black md:text-[2vw]"
+          style={{ lineHeight: 1 }}
+        >
+          DYNAMIC TICKER DATA AGGREGATION
+        </p>
+
+        <p
+          className="font-inter text-[8px] text-black md:text-[1vw]"
           style={{ lineHeight: 1 }}
         >
           Blade distills the strategies of the top 100 elite traders into
@@ -117,7 +119,7 @@ export const Section2 = () => {
 
           <div className="flex w-[30vw] justify-center">
             <p
-              className="font-avigea mt-[3vw] text-center text-[5vw] text-black"
+              className="mt-[3vw] text-center font-avigea text-[5vw] text-black"
               style={{ lineHeight: 1 }}
             >
               Our Tech
@@ -135,13 +137,13 @@ export const Section2 = () => {
           />
         </div>
 
-        <div className="-mt-[14vw] mb-[2vw] grid w-[80vw] grid-cols-3 gap-x-[2vw]">
+        <div className="-mt-[14vw] mb-[2vw] grid w-[80vw] grid-cols-1 gap-x-[2vw] gap-y-[2vw] md:grid-cols-3">
           {[1, 2, 3].map((id) => (
             <ServiceCard key={id} id={id} />
           ))}
         </div>
 
-        <div className="grid w-[80vw] grid-cols-2 gap-x-[2vw]">
+        <div className="grid w-[80vw] grid-cols-1 gap-x-[2vw] gap-y-[2vw] md:grid-cols-2">
           {[4, 5].map((id) => (
             <ServiceCard2 key={id} id={id} />
           ))}

@@ -24,7 +24,7 @@ export const Footer = () => {
     <footer className="flex h-full w-full justify-center bg-black pb-[3vw]">
       <div
         className={cn(
-          "flex h-full w-[90vw] overflow-hidden items-center rounded-3xl py-[0.5vw]",
+          "flex h-full w-[90vw] items-center overflow-hidden rounded-3xl py-[0.5vw] pl-[4vw] md:pl-1",
           {
             "bg-[#FFAFEC]": character.name === hawk.name,
             "bg-[#5DD9C1]": character.name === choco.name,
@@ -37,15 +37,18 @@ export const Footer = () => {
           width={480}
           height={480}
           alt=""
-          className="-ml-[7vw] mr-[4vw] h-auto w-[15vw]"
+          className="-ml-[7vw] mr-[4vw] hidden h-auto w-[15vw] md:block"
         />
 
-        <div className="flex h-full w-min flex-col justify-center mr-[3vw]">
-          <div className="flex w-full items-center gap-[2vw]">
-            <p className="font-inter text-[3vw] font-bold text-black">
+        <div className="mr-[8vw] flex h-full w-min flex-col justify-center md:mr-[3vw]">
+          <div className="flex w-full items-center gap-[2vw] mb-[1vw]">
+            <p
+              className="font-inter text-lg font-bold text-black md:text-[3vw]"
+              style={{ lineHeight: 1 }}
+            >
               sleuthi
             </p>
-            <div className="w-full border-b-[0.25vw] border-black" />
+            <div className="w-[10vw] border-b-[0.25vw] border-black" />
           </div>
 
           <div className="mb-[2vw] flex gap-[3vw]">
@@ -56,7 +59,7 @@ export const Footer = () => {
                 <Link key={index} href={navigation.link}>
                   <p
                     className={cn(
-                      "text-[1.5vw] text-black",
+                      "text-[8px] md:text-[1.5vw] text-black",
                       isActive ? "font-bold" : "font-normal",
                     )}
                   >
@@ -73,7 +76,7 @@ export const Footer = () => {
               width={480}
               height={480}
               alt=""
-              className="h-auto w-[4vw] hover:animate-shake"
+              className="h-auto w-[8vw] md:w-[4vw] hover:animate-shake"
               priority
             />
           </Link>
@@ -84,7 +87,7 @@ export const Footer = () => {
           width={800}
           height={800}
           alt=""
-          className="h-auto w-full mr-[2vw]"
+          className="mr-[2vw] h-auto w-full"
           priority
         />
       </div>
