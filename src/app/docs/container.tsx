@@ -61,7 +61,7 @@ const sidebarItems: SidebarItem[] = [
     content: <p>Lorem</p>,
   },
   {
-    title: "DATA AGGREGATION 3",
+    title: "DATA AGGREGATION 3", 
     content: <p>Lorem</p>,
   },
   {
@@ -78,6 +78,24 @@ const sidebarItems: SidebarItem[] = [
   },
 ];
 
+const bgColors = {
+  header: {
+    [hawk.name]: "bg-[#FFAFEC]",
+    [choco.name]: "bg-[#5DD9C1]", 
+    [river.name]: "bg-[#FFC75F]"
+  },
+  content: {
+    [hawk.name]: "bg-[#F7F6F2]",
+    [choco.name]: "bg-[#FEF8E1]",
+    [river.name]: "bg-[#F4EEFE]"
+  },
+  active: {
+    [hawk.name]: "bg-[#D6FF38]",
+    [choco.name]: "bg-[#FF6B6B]",
+    [river.name]: "bg-[#81F495]"
+  }
+};
+
 export function Container() {
   const { character } = useCharacterStore();
   const [activeSidebar, setActiveSidebar] = useState<number>(0);
@@ -87,6 +105,54 @@ export function Container() {
     [choco.name]: "/assets/characters/spark-choco.png",
     [river.name]: "/assets/characters/spark-river.png",
   };
+
+  const renderSidebarItem = (item: SidebarItem, index: number) => {
+    const isActive = activeSidebar === index;
+    return (
+      <div
+        key={index}
+        className={cn(
+          "w-full cursor-pointer rounded-full bg-white py-[1.5vw] text-center",
+          { [bgColors.active[character.name]]: isActive }
+        )}
+        onClick={() => setActiveSidebar(index)}
+      >
+        <p className="text-[1.25vw] font-semibold text-black">
+          {item.title}
+        </p>
+      </div>
+    );
+  };
+
+  const renderBackButton = () => (
+    <Link href="/">
+      <div className="absolute left-[2vw] top-[1.25vw] flex items-center gap-[1vw] hover:animate-shake">
+        <Image
+          src="/assets/docs/arrow-left.png"
+          width={480}
+          height={480}
+          alt=""
+          className="h-auto w-[2vw]"
+        />
+        <p className="mt-[0.25vw] font-avigea text-[1.25vw] font-bold text-black" style={{ lineHeight: 0 }}>
+          Back
+        </p>
+      </div>
+    </Link>
+  );
+
+  const renderSparkImage = (position: "left" | "right") => (
+    <Image
+      src={sparkAsset[character.name]}
+      width={480}
+      height={480}
+      alt=""
+      className={cn("absolute h-auto w-[6vw]", {
+        "bottom-[1.75vw] left-[5vw]": position === "left",
+        "right-[5vw] top-[1.75vw]": position === "right"
+      })}
+    />
+  );
 
   return (
     <main className="h-screen w-full">
@@ -99,47 +165,14 @@ export function Container() {
           </div>
 
           <div className="flex h-full w-full flex-col gap-[1.5vw] px-[2vw]">
-            {sidebarItems.map((item, index) => {
-              const isActive = activeSidebar === index;
-
-              return (
-                <div
-                  key={index}
-                  className={cn(
-                    "w-full cursor-pointer rounded-full bg-white py-[1.5vw] text-center",
-                    {
-                      "bg-[#D6FF38]": isActive && character.name === hawk.name,
-                      "bg-[#FF6B6B]": isActive && character.name === choco.name,
-                      "bg-[#81F495]": isActive && character.name === river.name,
-                    },
-                  )}
-                  onClick={() => setActiveSidebar(index)}
-                >
-                  <p className="text-[1.25vw] font-semibold text-black">
-                    {item.title}
-                  </p>
-                </div>
-              );
-            })}
+            {sidebarItems.map(renderSidebarItem)}
           </div>
         </div>
 
-        <div
-          className={cn("flex h-full w-[70%] flex-col", {
-            "bg-[#F7F6F2]": character.name === hawk.name,
-            "bg-[#FEF8E1]": character.name === choco.name,
-            "bg-[#F4EEFE]": character.name === river.name,
-          })}
-        >
-          <div
-            className={cn("relative h-[25%] w-full", {
-              "bg-[#FFAFEC]": character.name === hawk.name,
-              "bg-[#5DD9C1]": character.name === choco.name,
-              "bg-[#FFC75F]": character.name === river.name,
-            })}
-          >
+        <div className={cn("flex h-full w-[70%] flex-col", bgColors.content[character.name])}>
+          <div className={cn("relative h-[25%] w-full", bgColors.header[character.name])}>
             <Image
-              src={"/assets/docs/bg-pattern.png"}
+              src="/assets/docs/bg-pattern.png"
               width={1000}
               height={1000}
               alt=""
@@ -147,44 +180,14 @@ export function Container() {
               priority
             />
 
-            <Link href={"/"}>
-              <div className="absolute left-[2vw] top-[1.25vw] flex items-center gap-[1vw] hover:animate-shake">
-                <Image
-                  src={"/assets/docs/arrow-left.png"}
-                  width={480}
-                  height={480}
-                  alt=""
-                  className="h-auto w-[2vw]"
-                />
-
-                <p
-                  className="mt-[0.25vw] font-avigea text-[1.25vw] font-bold text-black"
-                  style={{ lineHeight: 0 }}
-                >
-                  Back
-                </p>
-              </div>
-            </Link>
+            {renderBackButton()}
 
             <p className="absolute left-[25vw] top-[6vw] font-avigea text-[2vw] text-black">
               {sidebarItems[activeSidebar].title}
             </p>
 
-            <Image
-              src={sparkAsset[character.name]}
-              width={480}
-              height={480}
-              alt=""
-              className="absolute bottom-[1.75vw] left-[5vw] h-auto w-[6vw]"
-            />
-
-            <Image
-              src={sparkAsset[character.name]}
-              width={480}
-              height={480}
-              alt=""
-              className="absolute right-[5vw] top-[1.75vw] h-auto w-[6vw]"
-            />
+            {renderSparkImage("left")}
+            {renderSparkImage("right")}
           </div>
 
           <div className="flex h-full w-full flex-col overflow-y-auto p-[2vw]">

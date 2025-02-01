@@ -31,7 +31,7 @@ export const Header = () => {
     <header className="sticky top-0 z-50 flex w-full justify-center rounded-xl border border-black backdrop-blur-sm">
       <div className="flex w-[90vw] items-center justify-between px-[2vw] py-[1vh]">
         <Link href={"/"}>
-          <p className="text-[1.5vw] font-bold text-black">sleuthi</p>
+          <p className="md:text-[1.5vw] text-2xl font-bold text-black">sleuthi</p>
         </Link>
 
         <div className="flex gap-[3vw]">
@@ -42,7 +42,7 @@ export const Header = () => {
               <Link key={index} href={navigation.link}>
                 <p
                   className={cn(
-                    "text-black text-[1vw]",
+                    "text-black text-xs md:text-[1vw]",
                     isActive ? "font-bold" : "font-normal",
                   )}
                 >

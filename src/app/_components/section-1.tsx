@@ -3,6 +3,7 @@
 import { choco, hawk, river, useCharacterStore } from "@/store/character-store";
 import { cn } from "@/utils/classname";
 import Image from "next/image";
+import Link from "next/link";
 
 export const Section1 = () => {
   const { character, setCharacter } = useCharacterStore();
@@ -59,9 +60,9 @@ export const Section1 = () => {
   };
 
   return (
-    <section className={cn(`flex h-screen w-full justify-center py-[10%]`)}>
-      <div className="relative flex h-full w-[90vw]">
-        <p className="font-arkipelago absolute -left-[2.5vw] -top-[2vw] -rotate-[25deg] text-[3vw] text-black">
+    <section className={cn(`flex h-full w-full justify-center py-[10%] overflow-hidden`)}>
+      <div className="relative flex md:flex-row items-center flex-col h-full w-[90vw]">
+        <p className="absolute -left-[2.5vw] -top-[2vw] -rotate-[25deg] font-arkipelago text-[3vw] text-black">
           Whats up...
         </p>
 
@@ -70,14 +71,14 @@ export const Section1 = () => {
           width={480}
           height={480}
           alt=""
-          className="absolute -right-[3.5vw] -top-[3vw] h-auto w-[8vw]"
+          className="absolute -right-[3.5vw] -top-[3vw] h-auto w-[8vw] md:block hidden"
           priority
         />
 
-        <div className="flex h-full w-[60%] flex-col justify-between pt-[4vw]">
+        <div className="flex h-full w-[80vw] md:w-[60%] flex-col justify-between pt-[4vw] z-50">
           <div className="flex w-full flex-col">
             <p
-              className="font-avigea text-[8vw] text-black"
+              className="font-avigea text-5xl md:text-[8vw] text-black"
               style={{ lineHeight: 1 }}
             >
               Hello I&apos;m
@@ -85,7 +86,7 @@ export const Section1 = () => {
               sleuthi
             </p>
             <p
-              className="font-inter w-[80%] text-[1.5vw] text-black"
+              className="w-[80%] font-inter text-xs mb-[2vw] md:text-[1.5vw] text-black"
               style={{ lineHeight: 1.2 }}
             >
               {`Hey, I'm ${character.name}! Your friendly AI assistant, ready to fetch
@@ -94,14 +95,16 @@ export const Section1 = () => {
           </div>
 
           <div className="flex items-center">
-            <div
-              className={cn(
-                "rounded-full border-[0.25vw] border-black px-[1.5vw] py-[1vw]",
-                bgColorMap[character.name],
-              )}
-            >
-              <p className="font-inter text-[2vw] text-black">{`Chat ${character.name}`}</p>
-            </div>
+            <Link href={"/chatbot"}>
+              <div
+                className={cn(
+                  "rounded-full border-[0.25vw] border-black px-[1.5vw] py-[1vw] hover:animate-shake",
+                  bgColorMap[character.name],
+                )}
+              >
+                <p className="font-inter text-[2vw] text-black">{`Chat ${character.name}`}</p>
+              </div>
+            </Link>
             <div className="w-[2vw] border-[0.25vw] border-b border-black" />
             <Image
               src={getNextOneChar()}
@@ -123,13 +126,13 @@ export const Section1 = () => {
           </div>
         </div>
 
-        <div className="h-full w-[40%]">
+        <div className="h-full w-[40%] md:mt-0 mt-[5vh] z-40">
           <Image
             src={heroAsset[character.name]}
             width={480}
             height={480}
             alt=""
-            className="h-auto w-full scale-150 -mt-[4vw]"
+            className="-mt-[4vw] h-auto w-full md:scale-150 scale-[3]"
             priority
           />
         </div>
