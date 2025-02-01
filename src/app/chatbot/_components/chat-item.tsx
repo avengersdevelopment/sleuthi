@@ -33,18 +33,18 @@ export default function ChatItem({ item, isPending }: ChatItemProps) {
       >
         <div
           className={cn(
-            "max-w-[80%] rounded-[1.2vw] px-[1.6vw] py-[1.2vw]",
+            "max-w-[80%] rounded-[1.2vw] px-2 py-2 md:max-w-[80%] md:px-[1.6vw] md:py-[1.2vw]",
             chatBgColor[character.name],
           )}
         >
           <motion.div
-            className="text-sm text-black"
+            className="text-sm text-black md:text-[1.2vw]"
             transition={{ type: "spring", stiffness: 400, damping: 25 }}
           >
             <ReactMarkdown
               remarkPlugins={[gfm]}
               className={cn(
-                "prose font-sora max-w-none text-[1.2vw] text-black [&_strong]:text-black",
+                "prose font-sora max-w-none text-sm text-black md:text-[1.2vw] [&_strong]:text-black",
                 item?.error && "text-red-600",
               )}
               components={{
@@ -73,17 +73,17 @@ export default function ChatItem({ item, isPending }: ChatItemProps) {
     >
       <div
         className={cn(
-          "max-w-[80%] rounded-[1.2vw] px-[1.6vw] py-[1.2vw]",
+          "max-w-[80%] rounded-[1.2vw] px-2 py-2 md:max-w-[80%] md:px-[1.6vw] md:py-[1.2vw]",
           chatBgColor[character.name],
         )}
       >
         <motion.div
-          className="text-sm text-white"
+          className="text-sm text-black md:text-[1.2vw]"
           transition={{ type: "spring", stiffness: 400, damping: 25 }}
         >
           <ReactMarkdown
             className={cn(
-              "prose font-sora max-w-none text-[1.2vw] text-black [&_strong]:text-black",
+              "prose font-sora max-w-none text-sm text-black md:text-[1.2vw] [&_strong]:text-black",
               item?.error && "text-red-600",
             )}
             components={{

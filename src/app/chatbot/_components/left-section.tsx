@@ -61,7 +61,7 @@ interface LeftSectionProps {
 }
 
 export default function LeftSection({ walletAddress }: LeftSectionProps) {
-  const { character, setCharacter } = useCharacterStore();
+  const { character } = useCharacterStore();
 
   const getTransition = () =>
     characterTransitions[character.name] || defaultTransition;
@@ -70,7 +70,19 @@ export default function LeftSection({ walletAddress }: LeftSectionProps) {
     `/assets/characters/chat-${getTransition()[chatType]}.png`;
 
   const changeCharacter = (nextCharacter: ICharacter) => {
-    setCharacter(nextCharacter);
+    const currentCharacter = JSON.parse(
+      localStorage.getItem("character-storage") || "{}",
+    );
+
+    const updatedCharacter = {
+      ...currentCharacter,
+      state: {
+        ...currentCharacter.state,
+        character: nextCharacter,
+      },
+    };
+
+    localStorage.setItem("character-storage", JSON.stringify(updatedCharacter));
 
     window.location.href = `/chatbot?character=${nextCharacter.name}&walletAddress=${walletAddress}`;
   };
@@ -124,14 +136,17 @@ export default function LeftSection({ walletAddress }: LeftSectionProps) {
               <div className="flex items-center">
                 <div
                   className={cn(
-                    "rounded-full border-[0.2vw] border-black px-[1.6vw] py-[0.8vw]",
+                    "rounded-full border-[0.2vw] border-black px-[1.6vw] py-[0.8vw] transition-all hover:opacity-50",
                     charBgColor[character.name],
                   )}
                 >
                   <p className="font-inter text-[1.2vw] text-black">{`Chat ${character.name}`}</p>
                 </div>
                 <div className="w-[1.6vw] border-[0.2vw] border-b border-black" />
-                <button onClick={() => changeCharacter(getTransition().next)}>
+                <button
+                  className="transition-all hover:scale-125"
+                  onClick={() => changeCharacter(getTransition().next)}
+                >
                   <Image
                     src={getCharImage("chatOne")}
                     width={480}
@@ -142,6 +157,7 @@ export default function LeftSection({ walletAddress }: LeftSectionProps) {
                 </button>
                 <div className="w-[1.6vw] border-[0.2vw] border-b border-black" />
                 <button
+                  className="transition-all hover:scale-125"
                   onClick={() => changeCharacter(getTransition().nextTwo)}
                 >
                   <Image

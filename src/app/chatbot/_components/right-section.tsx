@@ -2,7 +2,13 @@
 
 import { WalletAddressRequestSchema } from "@/data/schemas/dto";
 import { cn, formatZodError } from "@/lib/utils";
-import { choco, hawk, river, useCharacterStore } from "@/store/character-store";
+import {
+  choco,
+  hawk,
+  ICharacter,
+  river,
+  useCharacterStore,
+} from "@/store/character-store";
 import { InitiatePredictionResponse } from "@/types";
 import { AnimatePresence } from "framer-motion";
 import {
@@ -12,6 +18,7 @@ import {
   WalletIcon,
   XIcon,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useState } from "react";
 import ChatList from "./chat-list";
@@ -20,6 +27,40 @@ const headerBgColor = {
   [hawk.name]: "bg-[#FFAFEC]",
   [choco.name]: "bg-[#5DD9C1]",
   [river.name]: "bg-[#FFC75F]",
+};
+
+const charBgColor = {
+  [hawk.name]: "bg-[#D6FF38]",
+  [choco.name]: "bg-[#FF6B6B]",
+  [river.name]: "bg-[#81F495]",
+};
+
+const defaultTransition = {
+  next: choco,
+  nextTwo: river,
+  chatOne: "choco",
+  chatTwo: "river",
+};
+
+const characterTransitions = {
+  [hawk.name]: {
+    next: choco,
+    nextTwo: river,
+    chatOne: "choco",
+    chatTwo: "river",
+  },
+  [choco.name]: {
+    next: hawk,
+    nextTwo: river,
+    chatOne: "hawk",
+    chatTwo: "river",
+  },
+  [river.name]: {
+    next: choco,
+    nextTwo: hawk,
+    chatOne: "choco",
+    chatTwo: "hawk",
+  },
 };
 
 interface RightSectionProps {
@@ -76,6 +117,30 @@ export default function RightSection({
     window.location.href = `/chatbot?character=${character.name}`;
   };
 
+  const getTransition = () =>
+    characterTransitions[character.name] || defaultTransition;
+
+  const getCharImage = (chatType: "chatOne" | "chatTwo") =>
+    `/assets/characters/chat-${getTransition()[chatType]}.png`;
+
+  const changeCharacter = (nextCharacter: ICharacter) => {
+    const currentCharacter = JSON.parse(
+      localStorage.getItem("character-storage") || "{}",
+    );
+
+    const updatedCharacter = {
+      ...currentCharacter,
+      state: {
+        ...currentCharacter.state,
+        character: nextCharacter,
+      },
+    };
+
+    localStorage.setItem("character-storage", JSON.stringify(updatedCharacter));
+
+    window.location.href = `/chatbot?character=${nextCharacter.name}&walletAddress=${walletAddress}`;
+  };
+
   return (
     <section className="relative h-screen w-full bg-black">
       <div
@@ -85,15 +150,54 @@ export default function RightSection({
         )}
       >
         <div>
-          <div className="mb-4 md:mb-[2vw]">
-            <Link href="/">
-              <button className="flex items-center gap-2 px-4 py-2 md:gap-[0.5vw] md:px-[2vw] md:py-[0.5vw]">
-                <ChevronLeftIcon className="h-[16px] w-auto md:h-[1.2vw]" />
-                <p className="font-avigea text-sm font-bold text-black md:text-[1.2vw]">
-                  Back
-                </p>
+          <div className="mb-4 flex items-center justify-between gap-4 md:mb-[2vw]">
+            <div>
+              <Link href="/">
+                <button className="flex items-center gap-2 py-2 md:gap-[0.5vw] md:px-[2vw] md:py-[0.5vw]">
+                  <ChevronLeftIcon className="h-[16px] w-auto md:h-[1.2vw]" />
+                  <p className="font-avigea text-sm font-bold text-black md:text-[1.2vw]">
+                    Back
+                  </p>
+                </button>
+              </Link>
+            </div>
+
+            <div className="flex items-center md:hidden">
+              <div
+                className={cn(
+                  "border-1 rounded-full border-black px-4 py-2 transition-all hover:opacity-50",
+                  charBgColor[character.name],
+                )}
+              >
+                <p className="font-inter text-sm text-black">{`Chat ${character.name}`}</p>
+              </div>
+              <div className="w-2 border-2 border-b border-black" />
+              <button
+                className="transition-all hover:scale-125"
+                onClick={() => changeCharacter(getTransition().next)}
+              >
+                <Image
+                  src={getCharImage("chatOne")}
+                  width={480}
+                  height={480}
+                  alt=""
+                  className="h-auto w-8 cursor-pointer"
+                />
               </button>
-            </Link>
+              <div className="w-2 border-2 border-b border-black" />
+              <button
+                className="transition-all hover:scale-125"
+                onClick={() => changeCharacter(getTransition().nextTwo)}
+              >
+                <Image
+                  src={getCharImage("chatTwo")}
+                  width={480}
+                  height={480}
+                  alt=""
+                  className="h-auto w-8 cursor-pointer"
+                />
+              </button>
+            </div>
           </div>
           <div className="relative w-full">
             <input
@@ -109,12 +213,12 @@ export default function RightSection({
                 }
               }}
             />
-            <div className="absolute left-4 top-3 md:left-[1.6vw] md:top-[1.4vw]">
+            <div className="absolute left-4 top-3 md:left-[1.6vw] md:top-[1.2vw]">
               <WalletIcon className="h-[16px] w-auto text-black md:h-[1.6vw]" />
             </div>
             <AnimatePresence>
               {walletAddress && !isLoading && !isResolvingENS && (
-                <div className="absolute right-4 top-3 md:right-[1.6vw] md:top-[1.4vw]">
+                <div className="absolute right-4 top-3 transition-all hover:opacity-50 md:right-[1.6vw] md:top-[1.2vw]">
                   <button onClick={clearWalletAddress}>
                     <XIcon className="h-[16px] w-auto text-black md:h-[1.6vw]" />
                   </button>
@@ -123,7 +227,7 @@ export default function RightSection({
             </AnimatePresence>
             <AnimatePresence>
               {(isLoading || isResolvingENS) && (
-                <div className="absolute right-4 top-3 md:right-[1.6vw] md:top-[1.4vw]">
+                <div className="absolute right-4 top-3 transition-all hover:opacity-50 md:right-[1.6vw] md:top-[1.2vw]">
                   <Loader2Icon className="h-[16px] w-auto animate-spin text-black md:h-[1.6vw]" />
                 </div>
               )}
@@ -160,10 +264,10 @@ export default function RightSection({
           />
           <button
             type="submit"
-            className="flex min-h-10 min-w-10 items-center justify-center rounded-full border border-[#FFFFFF]/25 bg-gradient-to-b from-[#0D0D0D] to-[#1F1F1F] disabled:opacity-75 md:h-[4vw] md:w-[4vw]"
+            className="group flex min-h-10 min-w-10 items-center justify-center rounded-full border border-[#FFFFFF]/25 bg-gradient-to-b from-[#0D0D0D] to-[#1F1F1F] transition-all hover:opacity-50 disabled:opacity-75 md:h-[4vw] md:w-[4vw]"
             disabled={!walletAddress || isLoadingChat}
           >
-            <ArrowBigUpIcon className="h-4 w-auto text-white md:h-[1.6vw]" />
+            <ArrowBigUpIcon className="h-4 w-auto text-white transition-all group-hover:rotate-90 md:h-[1.6vw]" />
           </button>
         </form>
       </div>

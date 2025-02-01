@@ -177,10 +177,10 @@ export default function ChatList({
   }, [isPending]);
 
   return (
-    <div className="h-[calc(100%-12vw)] w-full">
+    <div className="h-[calc(100%-200px)] w-full md:h-[calc(100%-12vw)]">
       <div className="h-full w-full overflow-y-hidden">
-        <div className="h-full overflow-y-auto px-[1.6vw] pb-[4vw]">
-          <div className="flex flex-col gap-[0.8vw] py-[1.6vw]">
+        <div className="h-full overflow-y-auto px-4 pb-[4vw] md:px-[1.6vw]">
+          <div className="flex flex-col gap-2 py-4 md:gap-[1.2vw] md:py-[1.6vw]">
             {messages?.map((item, index) => (
               <Fragment key={index}>
                 <ChatItem item={item} isPending={isPending} />
