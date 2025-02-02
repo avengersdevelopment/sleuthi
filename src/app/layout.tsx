@@ -43,10 +43,10 @@ const avigea = localFont({
 
 export const metadata: Metadata = {
   title: "Sleuthi",
-  description: "Your friendly AI assistant, ready to fetch info with a smile",
+  description: "Every transaction tells a story.",
   openGraph: {
     title: "Sleuthi",
-    description: "Your friendly AI assistant, ready to fetch info with a smile",
+    description: "Every transaction tells a story.",
     url: "/",
     images: [
       {
