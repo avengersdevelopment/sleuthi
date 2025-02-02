@@ -7,13 +7,18 @@ import { FlowiseClient } from "flowise-sdk";
 import { NextResponse } from "next/server";
 
 export const POST = async (req: Request) => {
+
+  console.log("im here")
   const { question, character, walletAddress, sessionId, history } =
     AskQuestionRequestSchema.parse(await req.json());
 
+  console.log(question, character, walletAddress, sessionId, history)
   await checkRateLimit(walletAddress, 10, "1 m", "chat_ask");
 
+ 
+  console.log("Post 2")
   const characterName = CHARACTERS.find((c) => c.id === character)?.name;
-
+  console.log("Post 3")
   const client = new FlowiseClient({
     baseUrl: env.AI_API_URL,
     apiKey: env.AI_API_KEY,
@@ -22,7 +27,7 @@ export const POST = async (req: Request) => {
   const historyString = history
     ?.map(
       (message) =>
-        `[${message.role}] ${message.content
+        `[${message.role}] ${(message.content ?? "")
           .replace(/[\n\r]/g, " ") // Replace newlines with spaces
           .replace(/[^\x20-\x7E]/g, "") // Remove non-printable characters
           .replace(/"/g, '\\"') // Escape double quotes
@@ -30,6 +35,8 @@ export const POST = async (req: Request) => {
           .trim()}`,
     )
     .join(", ");
+  console.log("Post 3")
+  console.log(historyString)
 
   const intentRecognizerPrediction = (await client.createPrediction({
     chatflowId: CHATFLOW_MAPPING.INTENT_RECOGNIZER,
@@ -44,8 +51,9 @@ export const POST = async (req: Request) => {
     },
   })) as IntentRecognizerResponse;
 
+  
   const intent = intentRecognizerPrediction.json.intent;
-
+  console.log(intent)
   if (!intent || !CHATFLOW_MAPPING[intent]) {
     console.error(`Intent: ${intent} not found`);
     return new NextResponse(`Intent: ${intent} not found`, { status: 400 });
@@ -64,6 +72,8 @@ export const POST = async (req: Request) => {
       },
     },
   });
+
+  console.log(prediction)
 
   const stream = new ReadableStream({
     async start(controller) {

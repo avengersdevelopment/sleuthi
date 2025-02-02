@@ -88,7 +88,12 @@ export const AskQuestionRequestSchema = z.object({
     }),
   sessionId: z.string().optional(),
   history: z
-    .array(ChatMessageSchema.pick({ role: true, content: true }))
+    .array(
+      z.object({
+        role: ChatMessageSchema.shape.role, // Ensure role is required
+        content: ChatMessageSchema.shape.content.optional(), // Make content optional
+      })
+    )
     .optional(),
 });
 

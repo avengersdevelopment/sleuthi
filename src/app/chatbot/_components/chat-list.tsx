@@ -78,7 +78,7 @@ export default function ChatList({
       try {
         if (!walletAddress) return;
 
-        const response = await fetch("/ask-question", {
+        const response = await fetch("api/ask-question", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
