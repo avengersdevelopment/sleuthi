@@ -6,6 +6,7 @@ import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import { twMerge } from "tailwind-merge";
 import "./globals.css";
+import Loading from "@/components/loading";
 
 const inter = Inter({
   weight: ["400", "700"],
@@ -77,7 +78,9 @@ export default async function RootLayout({
             "font-inter antialiased",
           )}
         >
-          <Providers config={configs?.[0] || null}>{children}</Providers>
+          <Providers config={configs?.[0] || null}>
+            <Loading>{children}</Loading>
+          </Providers>
         </body>
       </html>
     </>
