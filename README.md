@@ -7,3 +7,4 @@
 const xCoinUrl = useConfig()((state) => state.config.x_coin_url);
 const buyUrl = useConfig()((state) => state.config.buy_url);
 ```
+
